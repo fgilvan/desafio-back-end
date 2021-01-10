@@ -32,7 +32,7 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.DataExtract.Spotify
 
             var obj = GetData(relativeUrl, string.Empty);
 
-            return obj.Tracks;
+            return obj?.Tracks;
         }
     }
 }

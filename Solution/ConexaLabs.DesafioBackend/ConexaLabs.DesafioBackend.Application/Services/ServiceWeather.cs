@@ -3,6 +3,8 @@ using ConexaLabs.DesafioBackend.Application.Interfaces;
 using ConexaLabs.DesafioBackend.Application.ViewModel;
 using ConexaLabs.DesafioBackend.Core.DataExtract.Interfaces;
 using ConexaLabs.DesafioBackend.Core.DataExtract.Obj.OpenWeather;
+using ConexaLabs.DesafioBackend.Core.Validations;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +32,11 @@ namespace ConexaLabs.DesafioBackend.Application.Services
         {
             var cityWeather = _weatherDataExtratorStrategy.GetCityWeatherByNameCity(cityName);
 
+            var validator = Validator() as OpenWeatherCityValidation;
+
+            validator.SignRulesResponse();
+            validator.ValidateAndThrow(cityWeather);
+
             return Converter().Converter(cityWeather);
         }
 
@@ -43,12 +50,22 @@ namespace ConexaLabs.DesafioBackend.Application.Services
         {
             var cityWeather = _weatherDataExtratorStrategy.GetCityWeatherByCoordinates(lat, lon);
 
+            var validator = Validator() as OpenWeatherCityValidation;
+
+            validator.SignRulesResponse();
+            validator.ValidateAndThrow(cityWeather);
+
             return Converter().Converter(cityWeather);
         }
 
         protected override ConverterBase<CityWeatherViewModel, OpenWeatherResponse> Converter()
         {
             return new CityWeatherConverter();
+        }
+
+        protected override AbstractValidator<OpenWeatherResponse> Validator()
+        {
+            return new OpenWeatherCityValidation();
         }
     }
 }

@@ -76,11 +76,18 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.Util
 
             var serializer = new JsonSerializer();
 
-            using (var reader = new StreamReader(responseStream, Encoding.UTF8))
-            using (var jsonTextReader = new JsonTextReader(reader))
+            try
             {
-                return serializer.Deserialize<T>(jsonTextReader);
+                using (var reader = new StreamReader(responseStream, Encoding.UTF8))
+                using (var jsonTextReader = new JsonTextReader(reader))
+                {
+                    return serializer.Deserialize<T>(jsonTextReader);
+                }
+            }catch(Exception ex)
+            {
             }
+
+            return default(T);
         }
     }
 }

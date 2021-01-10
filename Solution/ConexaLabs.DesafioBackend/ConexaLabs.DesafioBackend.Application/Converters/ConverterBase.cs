@@ -30,7 +30,7 @@ namespace ConexaLabs.DesafioBackend.Application.Converters
         {
             var listViewModel = new List<TViewModel>();
 
-            if (listViewModel == null)
+            if (listObj == null)
             {
                 return listViewModel;
             }

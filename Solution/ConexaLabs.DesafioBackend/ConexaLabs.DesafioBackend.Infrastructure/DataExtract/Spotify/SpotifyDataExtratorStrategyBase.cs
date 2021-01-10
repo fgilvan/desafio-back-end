@@ -18,6 +18,7 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.DataExtract.Spotify
     {
         private Token _token;
         private DateTime _tokenExpirationDate;
+        private string _urlToken = "https://accounts.spotify.com/api/token";
 
         protected override string Url
         {
@@ -31,9 +32,13 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.DataExtract.Spotify
         {
             get
             {
+                ////Verifica se o token não foi inicializado ou se seu tempo de vida expirou.
                 if(_token == null || (_token != null && _tokenExpirationDate >= DateTime.Now))
                 {
-                    _token = APIUtil.GetTokenAccess("https://accounts.spotify.com/api/token", "7b67aaa9c01f499799560ba1b1542019", "4cb0f867e1f44a8c8fbe256850cf163f");
+                    var clientId = ApplicationConfig.GetAppSettings("Spotify:ClientId");
+                    var clientSecret = ApplicationConfig.GetAppSettings("Spotify:ClientSecret");
+
+                    _token = APIUtil.GetTokenAccess(_urlToken, clientId, clientSecret);
                     _tokenExpirationDate = DateTime.Now.AddSeconds(_token.ExpiresIn);
                 }
 

@@ -16,9 +16,8 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.Util
         /// <param name="timeListInMilliseconds"></param>
         /// <param name="outputFuncion"></param>
         /// <returns></returns>
-        public static void TryRun<T>(Func<T> funcion, IList<int> timeListInMilliseconds, out T outputFuncion)
+        public static T TryRun<T>(Func<T> funcion, IList<int> timeListInMilliseconds)
         {
-            outputFuncion = default(T);
             var repetitionsNumber = timeListInMilliseconds.Count;
             var repetition = 0;
 
@@ -31,9 +30,7 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.Util
             {
                 try
                 {
-                    outputFuncion = funcion();
-
-                    return;
+                    return funcion();
                 }
                 catch (Exception ex)
                 {
@@ -55,6 +52,8 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.Util
                 }
             }
             while (repetition <= repetitionsNumber);
+
+            return default(T);
         }
     }
 }

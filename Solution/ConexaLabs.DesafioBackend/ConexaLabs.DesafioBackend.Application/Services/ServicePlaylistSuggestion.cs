@@ -4,6 +4,8 @@ using ConexaLabs.DesafioBackend.Application.ViewModel;
 using ConexaLabs.DesafioBackend.Core.DataExtract.Interfaces;
 using ConexaLabs.DesafioBackend.Core.DataExtract.Obj.Spotify;
 using ConexaLabs.DesafioBackend.Core.Enum;
+using ConexaLabs.DesafioBackend.Core.Validations;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,9 +60,17 @@ namespace ConexaLabs.DesafioBackend.Application.Services
         {
             var playListObj = _spotifyTrackExtratorStrategy.GetTrackByGenre(GetGenreByTemperature(temperature));
 
-            var playListViewModel = Converter().Converter(playListObj);
+            return Converter().Converter(playListObj);
+        }
 
-            return playListViewModel;
+        protected override ConverterBase<MusicViewModel, SpotifyTrackItem> Converter()
+        {
+            return new PlaylistSuggestionConverter();
+        }
+
+        protected override AbstractValidator<SpotifyTrackItem> Validator()
+        {
+            return new SpotifyValidation();
         }
 
         private EnumSpotifyGenres GetGenreByTemperature(double temperature)
@@ -78,11 +88,6 @@ namespace ConexaLabs.DesafioBackend.Application.Services
                 genre = EnumSpotifyGenres.CLASSICAL;
 
             return genre;
-        }
-
-        protected override ConverterBase<MusicViewModel, SpotifyTrackItem> Converter()
-        {
-            return new PlaylistSuggestionConverter();
         }
     }
 }

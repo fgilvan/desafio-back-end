@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConexaLabs.DesafioBackend.API", "ConexaLabs.DesafioBackend.API\ConexaLabs.DesafioBackend.API.csproj", "{B2024480-E9F5-4A30-BD73-AB18EEF262D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaLabs.DesafioBackend.Application", "ConexaLabs.DesafioBackend.Application\ConexaLabs.DesafioBackend.Application.csproj", "{D97562D9-B36B-43D4-AE2B-9648961604A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConexaLabs.DesafioBackend.Application", "ConexaLabs.DesafioBackend.Application\ConexaLabs.DesafioBackend.Application.csproj", "{D97562D9-B36B-43D4-AE2B-9648961604A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaLabs.DesafioBackend.Core", "ConexaLabs.DesafioBackend.Core\ConexaLabs.DesafioBackend.Core.csproj", "{5E24E81E-8B14-41D5-BBAB-B64D2694814C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConexaLabs.DesafioBackend.Core", "ConexaLabs.DesafioBackend.Core\ConexaLabs.DesafioBackend.Core.csproj", "{5E24E81E-8B14-41D5-BBAB-B64D2694814C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaLabs.DesafioBackend.Infrastructure", "ConexaLabs.DesafioBackend.Infrastructure\ConexaLabs.DesafioBackend.Infrastructure.csproj", "{F3EC2468-3F48-4C89-A9C1-DE5E2E8374E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConexaLabs.DesafioBackend.Infrastructure", "ConexaLabs.DesafioBackend.Infrastructure\ConexaLabs.DesafioBackend.Infrastructure.csproj", "{F3EC2468-3F48-4C89-A9C1-DE5E2E8374E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{1BFB7996-3464-464B-BA8B-1778E12C2FD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaLabs.DesafioBackend.Test", "ConexaLabs.DesafioBackend.Test\ConexaLabs.DesafioBackend.Test.csproj", "{3D740C01-35BE-47E6-9162-E99C8B2C5E58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{F3EC2468-3F48-4C89-A9C1-DE5E2E8374E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EC2468-3F48-4C89-A9C1-DE5E2E8374E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EC2468-3F48-4C89-A9C1-DE5E2E8374E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D740C01-35BE-47E6-9162-E99C8B2C5E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D740C01-35BE-47E6-9162-E99C8B2C5E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D740C01-35BE-47E6-9162-E99C8B2C5E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D740C01-35BE-47E6-9162-E99C8B2C5E58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D740C01-35BE-47E6-9162-E99C8B2C5E58} = {1BFB7996-3464-464B-BA8B-1778E12C2FD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D70F516E-F70F-4FB8-8BB9-DDD82C518069}

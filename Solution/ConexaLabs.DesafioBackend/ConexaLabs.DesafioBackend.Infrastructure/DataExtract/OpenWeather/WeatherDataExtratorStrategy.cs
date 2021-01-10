@@ -11,7 +11,7 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.DataExtract.OpenWeather
     public class WeatherDataExtratorStrategy: DataExtratorStrategyAPIBase<OpenWeatherResponse>, IWeatherDataExtratorStrategy
     {
         private const string parametersByNameCity = "q={0}&appid={1}";
-        private const string parametersByCoordinatesCity = "lat={0}&lat={1}&appid={2}";
+        private const string parametersByCoordinatesCity = "lat={0}&lon={1}&appid={2}";
 
         protected override string Url
         {
@@ -31,20 +31,27 @@ namespace ConexaLabs.DesafioBackend.Infrastructure.DataExtract.OpenWeather
 
         public OpenWeatherResponse GetCityWeatherByNameCity(string nameCity)
         {
-            var parameters = string.Format(CultureInfo.InvariantCulture, parametersByNameCity, nameCity, "553e0d0373572b1b63f7d91bd69fbb7e");
-            var relativeUrl = "data/2.5/weather";
+            var appId = ApplicationConfig.GetAppSettings("OpenWeather:AppId");
 
-            var obj = GetData(relativeUrl, parameters);
+            var parameters = string.Format(CultureInfo.InvariantCulture, parametersByNameCity, nameCity, appId);
 
-            return obj;
+            return GetOpenWeather(parameters);
         }
 
         public OpenWeatherResponse GetCityWeatherByCoordinates(double lat, double lon)
         {
-            var parameters = string.Format(CultureInfo.InvariantCulture, parametersByCoordinatesCity, lat, lon, "553e0d0373572b1b63f7d91bd69fbb7e");
+            var appId = ApplicationConfig.GetAppSettings("OpenWeather:AppId");
+
+            var parameters = string.Format(CultureInfo.InvariantCulture, parametersByCoordinatesCity, lat, lon, appId);
+
+            return GetOpenWeather(parameters);
+        }
+
+        private OpenWeatherResponse GetOpenWeather(string parameters)
+        {
             var relativeUrl = "data/2.5/weather";
 
-            var obj = GetData(parameters, relativeUrl);
+            var obj = GetData(relativeUrl, parameters);
 
             return obj;
         }

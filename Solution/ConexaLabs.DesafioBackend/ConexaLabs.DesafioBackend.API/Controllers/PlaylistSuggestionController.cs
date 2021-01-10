@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ConexaLabs.DesafioBackend.Application.Interfaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ConexaLabs.DesafioBackend.API.Controllers
@@ -38,7 +42,7 @@ namespace ConexaLabs.DesafioBackend.API.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex);
+                return TreatReturn(ex);
             }
         }
 
@@ -52,6 +56,12 @@ namespace ConexaLabs.DesafioBackend.API.Controllers
         [HttpGet("[Action]")]
         public IActionResult GetPlaylistByCoordinatesCity(double lat, double lon)
         {
+            var Configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build(); 
+
+            var teste = Configuration["ConnectionStrings:DefaultConnection"];
+
             try
             {
                 var playlist = ServicePlaylistSuggestion.GetPlaylistByCoordinatesCity(lat, lon);
@@ -60,8 +70,18 @@ namespace ConexaLabs.DesafioBackend.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return TreatReturn(ex);
             }
+        }
+
+        private IActionResult TreatReturn(Exception ex)
+        {
+            var validationEx = ex as ValidationException;
+
+            if (validationEx != null)
+                return BadRequest(string.Join("\r\n", validationEx.Errors));
+
+            return BadRequest(ex);
         }
     }
 }
